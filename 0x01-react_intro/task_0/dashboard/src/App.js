@@ -1,4 +1,5 @@
-import logo from './logo.jpg';
+import logo from './holberton-logo.jpg';
+import favicon from './favicon.png';
 import './App.css';
 
 export default function App() {
