@@ -8,13 +8,14 @@ $('body').append("<p id='count'></p>");
 $('body').append("<p>Copyright - Holberton School</p>");
 
 let count = 0;
+let infoClick = "";
+let display = document.getElementById('count');
 function updateCounter() {
     count++;
-    $('#count').html(`${count} clicks on the button`);
-}
+    infoClick = `${count} clicks on the button`;
+    display.innerHTML = infoClick;
+};
 
-// Use lodash's debounce to limit the button click function
-$('button').on('click', _.debounce(function() {
+$('button').on('click', _.debounce(function()  {
     updateCounter();
 }, 300));
-
