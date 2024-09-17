@@ -6,32 +6,44 @@ module.exports = {
     filename: 'bundle.js',
     path: path.resolve(__dirname, 'public'),
   },
+  mode: 'production',
   module: {
     rules: [
       {
-        test: /\.css$/i, // Handles CSS files
-        use: ['style-loader', 'css-loader'],
+        test: /\.css$/i,
+        use: ["style-loader", "css-loader"],
       },
       {
-        test: /\.(png|jpe?g|gif)$/i, // Handles image files
-        use: [
-          {
-            loader: 'file-loader',
-            options: {
-              name: '[name].[ext]',
-              outputPath: 'assets',
-            },
-          },
-          {
-            loader: 'image-webpack-loader', // Optimizes images
-            options: {
-              disable: process.env.NODE_ENV === 'development', // Enable only in production
-            },
-          },
-        ],
+        test: /\.(png|jpg|gif|svg)$/,
+        loader: 'file-loader',
       },
-    ],
-  },
-  mode: 'production',
+      {
+        test: /\.(gif|png|jpe?g|svg)$/i,
+        use: [
+          'file-loader',
+          {
+            loader: 'image-webpack-loader',
+            options: {
+              mozjpeg: {
+                progressive: true,
+              },
+              optipng: {
+                enabled: false,
+              },
+              pngquant: {
+                quality: [0.65, 0.90],
+                speed: 4
+              },
+              gifsicle: {
+                interlaced: false,
+              },
+              webp: {
+                quality: 75
+              }
+            },
+          },
+        ]
+      },
+    ]
+  }
 };
-
